@@ -1,6 +1,10 @@
 <?php
 abstract class RB_DB_Factory {
-	public static function create($preferred = '') {
+	public static function getRbDbs() {
+		return RB_Reflection::getClassesThatImplement('RB_IDB');
+	}
+	
+	public static function getActiveMods() {
 		$mods_available = self::getRbDbs();
 		
 		$mods_active = array_filter(
@@ -14,6 +18,12 @@ abstract class RB_DB_Factory {
 			throw new Exception('No active DB modules');
 		}
 		
+		return $mods_active;
+	}
+	
+	public static function getMod($preferred = '') {
+		$mods_active = self::getActiveMods();
+		
 		// use the first available active module by default
 		$class_name = reset($mods_active);
 		
@@ -23,11 +33,13 @@ abstract class RB_DB_Factory {
 			$class_name = RB_DB_CLASS;
 		}
 		
-		return new $class_name;
+		return $class_name;
 	}
 	
-	public static function getRbDbs() {
-		return RB_Reflection::getClassesThatImplement('RB_IDB');
+	public static function create($preferred = '') {
+		$class_name = self::getMod($preferred);
+		
+		return new $class_name;
 	}
 }
 ?>
