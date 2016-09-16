@@ -2,4 +2,5 @@
 
 phpunit .;
 
+echo "Press Enter to continue";
 read $a;

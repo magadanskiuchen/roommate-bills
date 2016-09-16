@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'RB_Reflection.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +34,7 @@ class RB_ReflectionTest extends TestCase {
 		$test_implementations = RB_Reflection::getClassesThatImplement('RB_Test');
 		$secondary_test_implementations = RB_Reflection::getClassesThatImplement('RB_Secondary_Test');
 		
-		$this->assertEquals(array_pop($test_implementations), 'RB_Test_1');
+		$this->assertEquals(reset($test_implementations), 'RB_Test_1');
 		$this->assertEquals(count($secondary_test_implementations), 2);
 	}
 }
