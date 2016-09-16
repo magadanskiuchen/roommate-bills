@@ -12,7 +12,7 @@ abstract class RB_DB_Factory {
 		
 		if ($preferred !== '' && in_array($preferred, $mods_available)) {
 			$class_name = $preferred;
-		} else if (defined('RB_DB_CLASS') && in_array(RB_DB_CLASS, $mods_available)) {
+		} else if (defined('RB_DB_CLASS') && RB_DB_CLASS !== '' && in_array(RB_DB_CLASS, $mods_available)) {
 			$class_name = RB_DB_CLASS;
 		}
 		
