@@ -3,16 +3,23 @@ abstract class RB_DB_Factory {
 	public static function create($preferred = '') {
 		$mods_available = self::getRbDbs();
 		
-		if (count($mods_available) < 1) {
-			throw new Exception('No DB modules available');
+		$mods_active = array_filter(
+			$mods_available,
+			function ($mod) {
+				return $mod::is_active();
+			}
+		);
+		
+		if (count($mods_active) < 1) {
+			throw new Exception('No active DB modules');
 		}
 		
-		// use the first available module by default
-		$class_name = reset($mods_available);
+		// use the first available active module by default
+		$class_name = reset($mods_active);
 		
-		if ($preferred !== '' && in_array($preferred, $mods_available)) {
+		if ($preferred !== '' && in_array($preferred, $mods_active)) {
 			$class_name = $preferred;
-		} else if (defined('RB_DB_CLASS') && RB_DB_CLASS !== '' && in_array(RB_DB_CLASS, $mods_available)) {
+		} else if (defined('RB_DB_CLASS') && RB_DB_CLASS !== '' && in_array(RB_DB_CLASS, $mods_active)) {
 			$class_name = RB_DB_CLASS;
 		}
 		
