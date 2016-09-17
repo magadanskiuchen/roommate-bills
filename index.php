@@ -12,6 +12,7 @@ class RB {
 		// Helpers
 		require_once(self::HELPERS . 'RB_Reflection.php');
 		require_once(self::HELPERS . 'RB_Templating.php');
+		require_once(self::HELPERS . 'RB_Config_Setup.php');
 		
 		// Init
 		require_once(self::INC . 'db' . DIRECTORY_SEPARATOR . 'RB_IDB.php');
@@ -26,12 +27,12 @@ class RB {
 	}
 	
 	public function __construct() {
-		$this->core();
-		
-		if (file_exists($this->config_path)) {
-			include_once($this->config_path);
-		} else {
+		if (!file_exists($this->config_path)) {
+			$this->core();
 			$this->install();
+		} else {
+			include_once($this->config_path);
+			$this->core();
 		}
 	}
 }

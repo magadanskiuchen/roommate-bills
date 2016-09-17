@@ -13,7 +13,7 @@
 		</div>
 		
 		<div class="row submit">
-			<input type="submit" value="Next" />
+			<input type="submit" name="step-1" value="Next" />
 		</div>
 	</fieldset>
 </form>

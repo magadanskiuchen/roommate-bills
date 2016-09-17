@@ -19,12 +19,12 @@ class RB_MySQL_DB implements RB_IDB {
 	
 	public static function getConfigConstants() {
 		return [
-			'RB_MYSQL_HOST' => ['label' => 'Host', 'required' => true, 'default' => RB_MYSQL_CONFIG::HOST],
-			'RB_MYSQL_USER' => ['label' => 'User', 'required' => true, 'default' => RB_MYSQL_CONFIG::USER],
-			'RB_MYSQL_PASS' => ['label' => 'Password', 'required' => true, 'default' => RB_MYSQL_CONFIG::PASS],
-			'RB_MYSQL_DB' => ['label' => 'Database name', 'required' => true, 'default' => RB_MYSQL_CONFIG::DB],
-			'RB_MYSQL_PORT' => ['label' => 'Port', 'required' => false, 'default' => RB_MYSQL_CONFIG::PORT],
-			'RB_MYSQL_SOCKET' => ['label' => 'Socket', 'required' => false, 'default' => RB_MYSQL_CONFIG::SOCKET],
+			'HOST' => ['label' => 'Host', 'required' => true, 'default' => RB_MYSQL_CONFIG::HOST],
+			'USER' => ['label' => 'User', 'required' => true, 'default' => RB_MYSQL_CONFIG::USER],
+			'PASS' => ['label' => 'Password', 'required' => true, 'default' => RB_MYSQL_CONFIG::PASS],
+			'DB' => ['label' => 'Database name', 'required' => true, 'default' => RB_MYSQL_CONFIG::DB],
+			'PORT' => ['label' => 'Port', 'required' => false, 'default' => RB_MYSQL_CONFIG::PORT],
+			'SOCKET' => ['label' => 'Socket', 'required' => false, 'default' => RB_MYSQL_CONFIG::SOCKET],
 		];
 	}
 	
