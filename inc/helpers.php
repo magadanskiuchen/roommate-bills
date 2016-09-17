@@ -1,3 +1,3 @@
 <?php
-require_once(__DIR__ . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'RB_Reflection.php');
+require_once(RB::HELPERS . 'RB_Reflection.php');
 ?>

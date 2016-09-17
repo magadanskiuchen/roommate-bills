@@ -1,5 +1,5 @@
 <?php
-if (!defined('ROOT')) exit;
+if (!class_exists('RB')) exit;
 
 $active_mods = RB_DB_Factory::getActiveMods();
 

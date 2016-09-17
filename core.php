@@ -1,4 +1,4 @@
 <?php
-require_once(ROOT . 'inc' . DIRECTORY_SEPARATOR . 'helpers.php');
-require_once(ROOT . 'inc' . DIRECTORY_SEPARATOR . 'init.php');
+require_once(RB::INC . 'helpers.php');
+require_once(RB::INC . 'init.php');
 ?>
