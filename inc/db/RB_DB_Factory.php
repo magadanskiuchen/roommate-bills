@@ -10,7 +10,7 @@ abstract class RB_DB_Factory {
 		$mods_active = array_filter(
 			$mods_available,
 			function ($mod) {
-				return $mod::is_active();
+				return $mod::isActive();
 			}
 		);
 		
@@ -21,7 +21,7 @@ abstract class RB_DB_Factory {
 		return $mods_active;
 	}
 	
-	public static function getMod($preferred = '') {
+	public static function getMod(string $preferred = '') {
 		$mods_active = self::getActiveMods();
 		
 		// use the first available active module by default
@@ -36,7 +36,7 @@ abstract class RB_DB_Factory {
 		return $class_name;
 	}
 	
-	public static function create($preferred = '') {
+	public static function create(string $preferred = '') {
 		$class_name = self::getMod($preferred);
 		
 		return new $class_name;

@@ -29,7 +29,7 @@ class RB_Test_3 implements RB_Secondary_Test {
 	}
 }
 
-class RB_ReflectionTest extends TestCase {
+class RB_Reflection_Test extends TestCase {
 	public function testGetClassesThatImplement() {
 		$test_implementations = RB_Reflection::getClassesThatImplement('RB_Test');
 		$secondary_test_implementations = RB_Reflection::getClassesThatImplement('RB_Secondary_Test');

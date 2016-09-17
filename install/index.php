@@ -1,58 +1,54 @@
 <?php
-if (!class_exists('RB')) exit;
-
-$active_mods = RB_DB_Factory::getActiveMods();
-
-$is_post_request = $_SERVER['REQUEST_METHOD'] === 'POST';
-$selected_mod = !empty($_POST['rb_db_module']) ? $_POST['rb_db_module'] : '';
-
-if (!$is_post_request || !in_array($selected_mod, $active_mods)) {
-	?>
-	<form action="" method="post">
-		<fieldset>
-			<div class="row">
-				<label for="rb_db_module">Database Module:</label>
-				
-				<select id="rb_db_module" name="rb_db_module">
-					<?php
-					foreach ($active_mods as $mod) {
-						echo '<option value="' . $mod . '">' . $mod . '</option>';
-					}
-					?>
-				</select>
-			</div>
-			
-			<div class="row submit">
-				<input type="submit" value="Next" />
-			</div>
-		</fieldset>
-	</form>
-	<?php
-} else if (empty($_POST['config_constants'])) {
-	$config_constants = $selected_mod::get_config_constants();
+class RB_Install {
+	private $active_db_mods = [];
+	private $db_mod = '';
 	
-	if (!empty($config_constants)) {
-		?>
-		<form action="" method="post">
-			<fieldset>
-				<?php
-				foreach ($config_constants as $constant => $options) {
-					?>
-					<div class="row">
-						<label for="config_const_<?php echo $constant; ?>" class="<?php echo ($options['required']) ? 'required' : ''; ?>"><?php echo $options['label']; ?></label>
-						
-						<input type="text" id="config_const_<?php echo $constant; ?>" name="config_constants[<?php echo $constant; ?>]" value="<?php echo $options['default'] ?>" />
-					</div>
-					<?php
-				}
-				?>
-				
-				<div class="row submit">
-					<input type="submit" value="Save" />
-				</div>
-			</fieldset>
-		</form>
-		<?php
+	public function __construct(string $db_mod = '') {
+		if (!isset($_SERVER['HTTP_HOST'])) {
+			return;
+		}
+		
+		$this->active_db_mods = RB_DB_Factory::getActiveMods();
+		
+		$preferred_db_mods = [];
+		
+		if ($db_mod !== '') {
+			$preferred_db_mods[] = $db_mod;
+		}
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['rb_db_module'])) {
+			$preferred_db_mods[] = $_POST['rb_db_module'];
+		}
+		
+		if (!empty($_GET['rb_db_module'])) {
+			$preferred_db_mods[] = $_GET['rb_db_module'];
+		}
+		
+		for ($i=0; $i < count($preferred_db_mods) && !$this->getDbMod(); $i++) {
+			$this->setDbMod($preferred_db_mods[$i]);
+		}
+		
+		if (!$this->db_mod) {
+			RB_Templating::getTemplate('install/step-1', ['active_mods' => $this->active_db_mods]);
+		} else {
+			RB_Templating::getTemplate('install/step-2', ['config_constants' => $this->db_mod::getConfigConstants()]);
+		}
+	}
+	
+	public function getActiveDbMods() {
+		return $this->active_db_mods;
+	}
+	
+	public function getDbMod() {
+		return $this->db_mod;
+	}
+	
+	public function setDbMod(string $mod) {
+		if (in_array($mod, $this->active_db_mods)) {
+			$this->db_mod = $mod;
+		}
+		
+		return $this->db_mod === $mod;
 	}
 }
 ?>

@@ -1,11 +1,14 @@
 <?php
-# define('RB_DB_CLASS', '');
+class RB_CONFIG {
+	const DB_CLASS = '';
+}
 
-# MySQL set-up constants
-# define('RB_MYSQL_HOST', '');
-# define('RB_MYSQL_USER', '');
-# define('RB_MYSQL_PASS', '');
-# define('RB_MYSQL_PORT', '');
-# define('RB_MYSQL_SOCKET', '');
-# define('RB_MYSQL_DB', '');
+class RB_MYSQL_CONFIG {
+	const HOST = 'localhost';
+	const USER = '';
+	const PASS = '';
+	const PORT = ''; // you can leave this empty
+	const SOCKET = ''; // you can leave this empty
+	const DB = '';
+}
 ?>
