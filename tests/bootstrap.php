@@ -1,1 +1,1 @@
-<?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'core.php'); ?>
+<?php require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'index.php'); ?>

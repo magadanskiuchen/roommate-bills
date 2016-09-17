@@ -7,8 +7,13 @@ class RB {
 	
 	protected $config_path = self::ROOT . 'config.php';
 	
+	private function core() {
+		require_once(self::INC . 'helpers.php');
+		require_once(self::INC . 'init.php');
+	}
+	
 	public function __construct() {
-		require_once(self::ROOT . 'core.php');
+		$this->core();
 		
 		if (file_exists($this->config_path)) {
 			include_once($this->config_path);
